@@ -19,13 +19,13 @@
 
 /** The queued messages (TSMessageView objects) */
 @property (nonatomic, strong) NSMutableArray *messages;
-
 @end
 
 @implementation TSMessage
 
 static TSMessage *sharedMessage;
 static BOOL notificationActive;
+static BOOL manualControlDisplay;
 
 static BOOL _useiOS7Style;
 
@@ -165,7 +165,9 @@ __weak static UIViewController *_defaultViewController;
     
     if (!notificationActive)
     {
-        [[TSMessage sharedMessage] fadeInCurrentNotification];
+        if (!manualControlDisplay) {
+           [[TSMessage sharedMessage] fadeInCurrentNotification];
+        }
     }
 }
 
@@ -177,6 +179,7 @@ __weak static UIViewController *_defaultViewController;
     if ((self = [super init]))
     {
         _messages = [[NSMutableArray alloc] init];
+        manualControlDisplay = NO;
     }
     return self;
 }
@@ -450,6 +453,26 @@ __weak static UIViewController *_defaultViewController;
         _useiOS7Style = ! (TS_SYSTEM_VERSION_LESS_THAN(@"7.0") || !iOS7SDK);
     });
     return _useiOS7Style;
+}
+
++ (void)activetManualControlMessageDisplay
+{
+    manualControlDisplay = YES;
+}
+
++ (void)inactiveManualControlMessageDisplay
+{
+    manualControlDisplay = NO;
+}
+
++ (void)showQueuedMessages
+{
+    if (!notificationActive && [[TSMessage sharedMessage].messages count])
+    {
+        if (manualControlDisplay) {
+            [[TSMessage sharedMessage] fadeInCurrentNotification];
+        }
+    }
 }
 
 @end

@@ -201,4 +201,9 @@ typedef NS_ENUM(NSInteger,TSMessageNotificationDuration) {
  UINavigationController */
 + (BOOL)isNavigationBarInNavigationControllerHidden:(UINavigationController *)navController;
 
++ (void)activetManualControlMessageDisplay;
++ (void)inactiveManualControlMessageDisplay;
++ (void)showQueuedMessages;
+
+
 @end
