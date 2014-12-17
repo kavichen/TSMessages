@@ -471,6 +471,7 @@ __weak static UIViewController *_defaultViewController;
     {
         if (manualControlDisplay) {
             [[TSMessage sharedMessage] fadeInCurrentNotification];
+            [self inactiveManualControlMessageDisplay];
         }
     }
 }
