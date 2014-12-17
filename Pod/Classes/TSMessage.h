@@ -201,8 +201,14 @@ typedef NS_ENUM(NSInteger,TSMessageNotificationDuration) {
  UINavigationController */
 + (BOOL)isNavigationBarInNavigationControllerHidden:(UINavigationController *)navController;
 
+/**
+ *  开启手动显示 message 状态，开启后才能显示 queued message。注意，每次显示都需要开启一次。
+ */
 + (void)activetManualControlMessageDisplay;
-+ (void)inactiveManualControlMessageDisplay;
+
+/**
+ *  显示 queue 里面的 messages. 注意需要开启 activeManualControlMessageDisplay.
+ */
 + (void)showQueuedMessages;
 
 
